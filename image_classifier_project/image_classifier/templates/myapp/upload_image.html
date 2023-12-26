@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Classifier (ResNet18)</title>
+</head>
+<body>
+    <h1>Image Classifier (ResNet18)</h1>
+    <form action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Upload Image</button>
+    </form>
+
+    {% if image_url %}
+    <h2>Uploaded Image</h2>
+    <img src="{{ image_url }}" alt="Uploaded Image">
+
+    {% if results %}
+    <h2>Results</h2>
+    <ul>
+        {% for result in results %}
+        <li>{{ result.0 }}: {% if result.1 > 0 %}{{ result.1 }}%{% else %}Not available{% endif %}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
+</body>
+</html>
